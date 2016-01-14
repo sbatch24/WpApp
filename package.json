@@ -1,7 +1,7 @@
 {
-  "name": "wpionic",
+  "name": "WpApp",
   "version": "1.0.0",
-  "description": "wpIonic: An Ionic project",
+  "description": "WpApp: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
@@ -15,7 +15,9 @@
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
-    "cordova-plugin-crosswalk-webview@1.2.0"
+    "cordova-plugin-crosswalk-webview@1.2.0",
+    "cordova-plugin-admobpro@2.11.1",
+    "cordova-plugin-extension@1.2.9"
   ],
   "cordovaPlatforms": []
 }
