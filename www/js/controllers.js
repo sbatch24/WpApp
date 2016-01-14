@@ -3,7 +3,7 @@ angular.module('wpIonic.controllers', [])
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $sce, DataLoader, $rootScope, $log ) {
   
   // Enter your site url here. You must have the WP-API v2 installed on this site. Leave /wp-json/wp/v2/ at the end.
-  $rootScope.url = 'http://newdrakemusic.com/wp-json/wp/v2/';
+  $rootScope.url = 'http://www.newdrakemusic.com/wp-json/wp/v2/';
 
   // $rootScope.callback = '_jsonp=JSON_CALLBACK';
 
@@ -51,7 +51,8 @@ angular.module('wpIonic.controllers', [])
 
   }
 
-  if( !postCache.get( $scope.itemID ) ) {
+  $scope.loadPost();
+  /*if( !postCache.get( $scope.itemID ) ) {
 
     // Item is not in cache, go get it
     $scope.loadPost();
@@ -61,7 +62,7 @@ angular.module('wpIonic.controllers', [])
     $scope.post = postCache.get( $scope.itemID );
     $scope.content = $sce.trustAsHtml( $scope.post.content.rendered );
     // $scope.comments = $scope.post._embedded['replies'][0];
-  }
+  }*/
 
   // Bookmarking
   $scope.bookmarked = Bookmark.check( $scope.itemID );
@@ -98,6 +99,7 @@ angular.module('wpIonic.controllers', [])
   var postsApi = $rootScope.url + 'posts';
 
   $scope.moreItems = false;
+
 
   $scope.loadPosts = function() {
 

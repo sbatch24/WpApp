@@ -4,7 +4,7 @@
 // 'wpIonic' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'wpIonic.controllers' is found in controllers.js, wpIoinc.services is in services.js
-angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 'wpIonic.services', 'wpIonic.filters', 'ngCordova', 'angular-cache'])
+angular.module('WpApp', ['ionic','ionic.service.core', 'wpIonic.controllers', 'wpIonic.services', 'wpIonic.filters', 'ngCordova', 'angular-cache'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -13,6 +13,29 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
+
+    //if(window.plugins && window.plugins.AdMob) {
+      console.log("Loading Admob");
+      var admob_key = "ca-app-pub-9456117956279909/8721002273";
+      var admob = window.plugins.AdMob;
+      admob.createBannerView(
+          {
+            'publisherId': admob_key,
+            'adSize': admob.AD_SIZE.BANNER,
+            'bannerAtTop': false
+          },
+          function() {
+            admob.requestAd(
+                { 'isTesting': false },
+                function() {
+                  admob.showAd(true);
+                },
+                function() { console.log('failed to request ad'); }
+            );
+          },
+          function() { console.log('failed to create banner view'); }
+      );
+    //}
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
@@ -22,7 +45,7 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, CacheFactoryProvider) {
 
-  angular.extend(CacheFactoryProvider.defaults, { 
+  angular.extend(CacheFactoryProvider.defaults, {
     'storageMode': 'localStorage',
     'capacity': 10,
     'maxAge': 10800000,
@@ -34,40 +57,6 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
   if( ionic.Platform.isAndroid() ) {
     $ionicConfigProvider.scrolling.jsScrolling(false);
   }
-
-
-  // AdMob
-  var admobid = {};
-  if( /(android)/i.test(navigator.userAgent) ) {
-    admobid = { // for Android
-      banner: 'ca-app-pub-9456117956279909/8721002273',
-      interstitial: 'ca-app-pub-9456117956279909/1211081871'
-    };
-  } else if(/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
-    admobid = { // for iOS
-      banner: 'ca-app-pub-9456117956279909/8721002273',
-      interstitial: 'ca-app-pub-9456117956279909/1211081871'
-    };
-  } else {
-    admobid = { // for Windows Phone
-      banner: 'ca-app-pub-9456117956279909/8721002273',
-      interstitial: 'ca-app-pub-9456117956279909/1211081871'
-    };
-  }
-
-  AdMob.createBanner( {
-    adId: admobid.banner,
-    isTesting: true,
-    overlap: false,
-    offsetTopBar: false,
-    position: AdMob.AD_POSITION.BOTTOM_CENTER,
-    bgColor: 'black'
-  } );
-
-  AdMob.prepareInterstitial({
-    adId: admobid.interstitial,
-    autoShow: true
-  });
 
   $stateProvider
 
