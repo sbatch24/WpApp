@@ -1,9 +1,9 @@
 # Test WP App
 
 ## Getting Started
-'''bash
+```bash
 bower install
 cordova platform add android
 npm install
 ionic state restore
-'''
+```
