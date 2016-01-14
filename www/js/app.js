@@ -35,7 +35,7 @@ angular.module('wpIonic', ['ionic','ionic.service.core', 'wpIonic.controllers', 
     $ionicConfigProvider.scrolling.jsScrolling(false);
   }
 
-a
+
   // AdMob
   var admobid = {};
   if( /(android)/i.test(navigator.userAgent) ) {
