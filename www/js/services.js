@@ -1,4 +1,4 @@
-angular.module('wpIonic.services', [])
+angular.module('newdrakemusic.services', [])
 
 /**
  * A simple example service that returns some data.

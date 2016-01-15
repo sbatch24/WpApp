@@ -1,4 +1,4 @@
-angular.module('wpIonic.controllers', [])
+angular.module('newdrakemusic.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $sce, DataLoader, $rootScope, $log ) {
   
@@ -14,12 +14,17 @@ angular.module('wpIonic.controllers', [])
   if ( ! CacheFactory.get('postCache') ) {
     CacheFactory.createCache('postCache');
   }
-
   var postCache = CacheFactory.get( 'postCache' );
+
+  /*if ( ! CacheFactory.get('mediaCache') ) {
+    CacheFactory.createCache('mediaCache');
+  }
+  var mediaCache = CacheFactory.get( 'mediaCache' );*/
 
   $scope.itemID = $stateParams.postId;
 
   var singlePostApi = $rootScope.url + 'posts/' + $scope.itemID;
+  //var singlePostMediaApi = $rootScope.url + 'media/' + $scope.itemID;
 
   $scope.loadPost = function() {
 
@@ -32,22 +37,36 @@ angular.module('wpIonic.controllers', [])
     DataLoader.get( singlePostApi ).then(function(response) {
 
       $scope.post = response.data;
-
       $log.debug($scope.post);
 
       // Don't strip post html
       $scope.content = $sce.trustAsHtml(response.data.content.rendered);
-
       // $scope.comments = $scope.post._embedded['replies'][0];
 
       // add post to our cache
       postCache.put( response.data.id, response.data );
-
       $ionicLoading.hide();
     }, function(response) {
       $log.error('error', response);
       $ionicLoading.hide();
     });
+
+    /*DataLoader.get( singlePostMediaApi ).then(function(response) {
+
+      $scope.postMedia = response.data;
+      $log.debug($scope.postMedia);
+
+      // Don't strip post html
+      //$scope.content = $sce.trustAsHtml(response.data.content.rendered);
+      // $scope.comments = $scope.post._embedded['replies'][0];
+
+      // add post to our cache
+      postCache.put( response.data.id, response.data );
+      $ionicLoading.hide();
+    }, function(response) {
+      $log.error('error', response);
+      $ionicLoading.hide();
+    });*/
 
   }
 
@@ -104,6 +123,32 @@ angular.module('wpIonic.controllers', [])
   $scope.loadPosts = function() {
 
     // Get all of our posts
+    DataLoader.get( postsApi ).then(function(response) {
+
+      $scope.posts = response.data;
+
+      // get media for posts
+      /*for(var j=0;j < $scope.posts.length; j++) {
+        console.log($scope.posts[j].id);
+        var mediaApi = $rootScope.url + 'media/' + $scope.posts[j].id;
+
+        DataLoader.get( mediaApi ).then(function(response) {
+          $scope.posts[j].media = response;
+          $scope.posts[j].screenshot = $sce.trustAsHtml(response.guid.rendered);
+
+        }, function(response) {
+          $log.log(mediaApi, response.data);
+        });
+      }*/
+
+      $scope.moreItems = true;
+
+      $log.log(postsApi, response.data);
+
+    }, function(response) {
+      $log.log(postsApi, response.data);
+    });
+
     DataLoader.get( postsApi ).then(function(response) {
 
       $scope.posts = response.data;

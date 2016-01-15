@@ -1,28 +1,33 @@
-// Ionic wpIonic App
+// Ionic newdrakemusic App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
-// 'wpIonic' is the name of this angular module example (also set in a <body> attribute in index.html)
+// 'newdrakemusic' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-// 'wpIonic.controllers' is found in controllers.js, wpIoinc.services is in services.js
-angular.module('WpApp', ['ionic','ionic.service.core', 'wpIonic.controllers', 'wpIonic.services', 'wpIonic.filters', 'ngCordova', 'angular-cache'])
+// 'newdrakemusic.controllers' is found in controllers.js, wpIoinc.services is in services.js
+angular.module('newdrakemusic', ['ionic','ionic.service.core', 'newdrakemusic.controllers', 'newdrakemusic.services', 'newdrakemusic.filters', 'ngCordova', 'angular-cache'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
+    /*if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-
-    //if(window.plugins && window.plugins.AdMob) {
+    }*/
+    //if(window.AdMob) {
       console.log("Loading Admob");
       var admob_key = "ca-app-pub-9456117956279909/8721002273";
-      var admob = window.plugins.AdMob;
-      admob.createBannerView(
+      var admob = window.AdMob;
+      console.log(JSON.stringify(admob));
+      admob.createBanner( {
+        adId:admob_key,
+        position:admob.AD_POSITION.BOTTOM_CENTER,
+        isTesting: true,
+        autoShow:true} );
+      /*admob.createBannerView(
           {
             'publisherId': admob_key,
             'adSize': admob.AD_SIZE.BANNER,
-            'bannerAtTop': false
+            'bannerAtTop': true
           },
           function() {
             admob.requestAd(
@@ -34,7 +39,8 @@ angular.module('WpApp', ['ionic','ionic.service.core', 'wpIonic.controllers', 'w
             );
           },
           function() { console.log('failed to create banner view'); }
-      );
+      );*/
+      console.log(admob);
     //}
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required

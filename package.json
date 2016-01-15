@@ -1,7 +1,7 @@
 {
-  "name": "WpApp",
+  "name": "New Drake Music",
   "version": "1.0.0",
-  "description": "WpApp: An Ionic project",
+  "description": "New Drake Music",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
